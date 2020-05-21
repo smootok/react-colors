@@ -1,0 +1,8 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "rules": {
+    "react/jsx-handler-names": 0,
+    "react/prop-types": 0
+  }
+}
