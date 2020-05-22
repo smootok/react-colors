@@ -2,11 +2,9 @@
   width: 20%;
   height: 25%;
   margin: 0 auto;
-  display: inline-block;
   position: relative;
   cursor: pointer;
   text-transform: uppercase;
-  margin-bottom: -3.5px;
 }
 
 .copy-button {
@@ -24,6 +22,7 @@
   border: none;
   opacity: 0;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .color-box:hover .copy-button {
