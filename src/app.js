@@ -9,7 +9,7 @@ console.log(generatePalette(palettesConfig[4]))
 export default function App () {
   return (
     <div>
-      <Palette {...palettesConfig[4]} />
+      <Palette palette={generatePalette(palettesConfig[4])} />
     </div>
   )
 }
