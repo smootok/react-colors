@@ -10,13 +10,16 @@ export default function Palette ({ palette }) {
 
   return (
     <div className='palette'>
-      <Slider
-        defaultValue={level}
-        step={100}
-        min={100}
-        max={900}
-        onAfterChange={level => setLevel(level)}
-      />
+      <div className='slider'>
+        <Slider
+          defaultValue={level}
+          step={100}
+          min={100}
+          max={900}
+          onAfterChange={level => setLevel(level)}
+        />
+      </div>
+
       <div className='palette-colors'>
         {palette.colors[level].map(color => (
           <ColorBox key={color.hex} name={color.name} background={color.hex} />
