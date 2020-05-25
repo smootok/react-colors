@@ -4,7 +4,7 @@ import './palette.css'
 import ColorBox from './color-box'
 import Navbar from './navbar'
 
-export default function Palette ({ palette }) {
+export default function Palette ({ palette: { colors, paletteName, emoji } }) {
   const [level, setLevel] = React.useState(500)
   const [colorFormat, setColorFormat] = React.useState('hex')
 
@@ -17,10 +17,18 @@ export default function Palette ({ palette }) {
         setColorFormat={setColorFormat}
       />
       <div className='palette-colors'>
-        {palette.colors[level].map(color => (
-          <ColorBox key={color.hex} name={color.name} background={color[colorFormat]} />
+        {colors[level].map(color => (
+          <ColorBox
+            key={color.id}
+            name={color.name}
+            background={color[colorFormat]}
+          />
         ))}
       </div>
+      <footer className='palette-footer'>
+        {paletteName}
+        <span className='emoji'>{emoji}</span>
+      </footer>
     </div>
   )
 }
