@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
@@ -44,11 +45,14 @@ const useStyles = makeStyles({
   }
 })
 
-export default function MiniPalette ({ paletteName, emoji, colors }) {
+export default function MiniPalette ({ id, paletteName, emoji, colors }) {
   const classes = useStyles()
+  const history = useHistory()
+
+  const handleClick = () => history.push({ pathname: `/palette/${id}` })
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleClick}>
       <div className={classes.colors}>
         {colors.map(color => (
           <div
