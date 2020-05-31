@@ -24,6 +24,7 @@ export default function Palette ({ palette: { id, colors, paletteName, emoji } }
             name={color.name}
             background={color[colorFormat]}
             paletteId={id}
+            showLink
           />
         ))}
       </div>

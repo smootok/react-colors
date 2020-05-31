@@ -4,6 +4,8 @@
   position: relative;
   cursor: pointer;
   text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: -3.5px;
 }
 
 .copy-button {

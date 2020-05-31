@@ -4,7 +4,13 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import './color-box.css'
 
-export default function ColorBox ({ id, name, background, paletteId }) {
+export default function ColorBox ({
+  id,
+  name,
+  background,
+  paletteId,
+  showLink
+}) {
   const [copied, setCopied] = React.useState(false)
 
   React.useEffect(() => {
@@ -31,12 +37,14 @@ export default function ColorBox ({ id, name, background, paletteId }) {
           </div>
           <button className='copy-button'>Copy</button>
         </div>
-        <Link
-          to={`/palette/${paletteId}/${id}`}
-          onClick={e => e.stopPropagation()}
-        >
-          <span className='see-more'>More</span>
-        </Link>
+        {showLink && (
+          <Link
+            to={`/palette/${paletteId}/${id}`}
+            onClick={e => e.stopPropagation()}
+          >
+            <span className='see-more'>More</span>
+          </Link>
+        )}
       </div>
     </CopyToClipboard>
   )

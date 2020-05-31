@@ -5,9 +5,7 @@
 }
 
 .palette-colors {
-  height: 90%;
-  display: flex;
-  flex-wrap: wrap;
+  height: 90vh;
 }
 
 .palette-footer {

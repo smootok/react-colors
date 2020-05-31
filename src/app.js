@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import PaletteList from './palette-list'
 import Palette from './palette'
+import MorePalette from './more-palette'
 import palettesConfig from './palettes.config'
 import { generatePalette } from './palettes.helpers'
 
@@ -32,7 +33,12 @@ export default function App () {
       <Route
         exact
         path='/palette/:paletteId/:colorId'
-        render={() => <h1>Single Color Page!</h1>}
+        render={props => (
+          <MorePalette
+            colorId={props.match.params.colorId}
+            palette={generatePalette(findPalette(props.match.params.paletteId))}
+          />
+        )}
       />
     </Switch>
   )
