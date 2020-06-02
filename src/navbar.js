@@ -1,12 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Select from '@material-ui/core/Select'
-import { MenuItem, IconButton, Snackbar } from '@material-ui/core'
+import { MenuItem, IconButton, Snackbar, Select } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 import { Close as CloseIcon } from '@material-ui/icons'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
-import './navbar.css'
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    height: '6vh'
+  },
+  logo: {
+    marginRight: '15px',
+    padding: '0 13px',
+    fontSize: '22px',
+    fontFamily: 'Roboto',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    textTransform: 'lowercase',
+    '& a': {
+      textDecoration: 'none',
+      color: 'black'
+    }
+  },
+  slider: {
+    width: '340px',
+    margin: '0 10px',
+    display: 'inline-block',
+    '& .rc-slider-track': {
+      backgroundColor: 'transparent'
+    },
+    '& .rc-slider-rail': {
+      height: '8px'
+    },
+    '& .rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:focus,.rc-slider-handle:hover': {
+      backgroundColor: 'green',
+      outline: 'none',
+      border: '2px solid green',
+      boxShadow: 'none',
+      width: '13px',
+      height: '13px',
+      marginTop: '-3px'
+    }
+  },
+  selectContainer: {
+    marginLeft: 'auto',
+    marginRight: '1rem'
+  }
+})
 
 export default function Navbar ({
   level,
@@ -15,6 +60,7 @@ export default function Navbar ({
   setColorFormat,
   showAllColors
 }) {
+  const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
   const handleColorFormatChange = e => {
@@ -23,14 +69,14 @@ export default function Navbar ({
   }
 
   return (
-    <header className='navbar'>
-      <div className='logo'>
+    <header className={classes.root}>
+      <div className={classes.logo}>
         <Link to='/'>React Colors</Link>
       </div>
       {showAllColors && (
-        <div className='slider-container'>
-          <span className='level'>Level: {level}</span>
-          <div className='slider'>
+        <div>
+          <span className={classes.level}>Level: {level}</span>
+          <div className={classes.slider}>
             <Slider
               defaultValue={level}
               step={100}
@@ -41,7 +87,7 @@ export default function Navbar ({
           </div>
         </div>
       )}
-      <div className='select-container'>
+      <div className={classes.selectContainer}>
         <Select value={colorFormat} onChange={handleColorFormatChange}>
           <MenuItem value='hex'>HEX - #ffffff</MenuItem>
           <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>

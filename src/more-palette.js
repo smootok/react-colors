@@ -69,7 +69,7 @@ export default function MorePalette ({ palette, colorId }) {
       <Navbar
         colorFormat={colorFormat}
         setColorFormat={setColorFormat}
-        showingAllColors={false}
+        showAllColors={false}
       />
       <div className={classes.colors}>
         {shades.map(color => (
