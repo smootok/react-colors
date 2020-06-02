@@ -48,8 +48,8 @@ const useStyles = makeStyles({
 })
 
 export default function MorePalette ({ palette, colorId }) {
-  const [colorFormat, setColorFormat] = React.useState('hex')
   const classes = useStyles()
+  const [colorFormat, setColorFormat] = React.useState('hex')
 
   const gatherShades = (palette, colorId) => {
     let shades = []
