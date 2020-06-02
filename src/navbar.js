@@ -12,7 +12,8 @@ export default function Navbar ({
   level,
   setLevel,
   colorFormat,
-  setColorFormat
+  setColorFormat,
+  showAllColors
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -26,23 +27,22 @@ export default function Navbar ({
       <div className='logo'>
         <Link to='/'>React Colors</Link>
       </div>
-      <div className='slider-container'>
-        <span className='level'>Level: {level}</span>
-        <div className='slider'>
-          <Slider
-            defaultValue={level}
-            step={100}
-            min={100}
-            max={900}
-            onAfterChange={level => setLevel(level)}
-          />
+      {showAllColors && (
+        <div className='slider-container'>
+          <span className='level'>Level: {level}</span>
+          <div className='slider'>
+            <Slider
+              defaultValue={level}
+              step={100}
+              min={100}
+              max={900}
+              onAfterChange={level => setLevel(level)}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className='select-container'>
-        <Select
-          value={colorFormat}
-          onChange={handleColorFormatChange}
-        >
+        <Select value={colorFormat} onChange={handleColorFormatChange}>
           <MenuItem value='hex'>HEX - #ffffff</MenuItem>
           <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
           <MenuItem value='rgba'>RGBA - rgba(255,255,255,1.0)</MenuItem>
