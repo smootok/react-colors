@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import PaletteList from './palette-list'
 import Palette from './palette'
 import MorePalette from './more-palette'
+import NewPalette from './new-palette'
 import palettesConfig from './palettes.config'
 import { generatePalette } from './palettes.helpers'
 
@@ -21,6 +22,7 @@ export default function App () {
         path='/'
         render={() => <PaletteList palettes={palettesConfig} />}
       />
+      <Route exact path='/palette/new' render={() => <NewPalette />} />
       <Route
         exact
         path='/palette/:id'
