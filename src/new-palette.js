@@ -1,20 +1,21 @@
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import {
   Drawer,
   CssBaseline,
   AppBar,
   Toolbar,
   Typography,
+  Button,
   Divider,
   IconButton
 } from '@material-ui/core'
 import {
   Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon
+  ChevronLeft as ChevronLeftIcon
 } from '@material-ui/icons'
+import { ChromePicker } from 'react-color'
 
 const drawerWidth = 240
 
@@ -53,7 +54,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end'
   },
@@ -77,8 +77,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NewPalette () {
   const classes = useStyles()
-  const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(true)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -123,14 +122,23 @@ export default function NewPalette () {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
+        <Typography variant='h4'>Design Your Palette</Typography>
+        <div>
+          <Button variant='contained' color='secondary'>
+            Clear Palette
+          </Button>
+          <Button variant='contained' color='primary'>
+            Random Color
+          </Button>
+        </div>
+        <ChromePicker />
+        <Button variant='contained' color='primary'>
+          Add Color
+        </Button>
       </Drawer>
     </div>
   )
