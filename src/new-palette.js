@@ -78,6 +78,8 @@ const useStyles = makeStyles(theme => ({
 export default function NewPalette () {
   const classes = useStyles()
   const [open, setOpen] = React.useState(true)
+  const [currentColor, setCurrentColor] = React.useState('teal')
+  const [colors, setColors] = React.useState(['red', 'green', 'blue'])
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -85,6 +87,10 @@ export default function NewPalette () {
 
   const handleDrawerClose = () => {
     setOpen(false)
+  }
+
+  const addCurrentColor = () => {
+    setColors(colors => [...colors, currentColor])
   }
 
   return (
@@ -135,11 +141,37 @@ export default function NewPalette () {
             Random Color
           </Button>
         </div>
-        <ChromePicker />
-        <Button variant='contained' color='primary'>
+        <ChromePicker
+          color={currentColor}
+          onChangeComplete={newColor => setCurrentColor(newColor.hex)}
+        />
+        <Button
+          variant='contained'
+          color='primary'
+          style={{ background: currentColor }}
+          onClick={addCurrentColor}
+        >
           Add Color
         </Button>
       </Drawer>
+
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        <ul>
+          {colors.map(color => (
+            <li
+              style={{ width: '100px', height: '100px', background: color }}
+              key={color}
+            >
+              {color}
+            </li>
+          ))}
+        </ul>
+      </main>
     </div>
   )
 }
