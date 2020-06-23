@@ -17,6 +17,8 @@ import {
 } from '@material-ui/icons'
 import { ChromePicker } from 'react-color'
 
+import DraggableColorBox from './draggabale-color-box'
+
 const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
@@ -59,6 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
+    height: 'calc(100vh - 64px)',
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -161,16 +164,9 @@ export default function NewPalette () {
         })}
       >
         <div className={classes.drawerHeader} />
-        <ul>
-          {colors.map(color => (
-            <li
-              style={{ width: '100px', height: '100px', background: color }}
-              key={color}
-            >
-              {color}
-            </li>
-          ))}
-        </ul>
+        {colors.map(color => (
+          <DraggableColorBox key={color} color={color} />
+        ))}
       </main>
     </div>
   )
