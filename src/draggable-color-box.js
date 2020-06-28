@@ -13,12 +13,12 @@ const useStyles = makeStyles({
   }
 })
 
-export default function DraggableColorBox ({ color }) {
+export default function DraggableColorBox ({ color, name }) {
   const classes = useStyles()
 
   return (
     <div className={classes.root} style={{ backgroundColor: color }}>
-      {color}
+      {name}
     </div>
   )
 }

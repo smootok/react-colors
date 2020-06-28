@@ -9,7 +9,8 @@ import {
   Typography,
   Button,
   Divider,
-  IconButton
+  IconButton,
+  TextField
 } from '@material-ui/core'
 import {
   Menu as MenuIcon,
@@ -17,7 +18,7 @@ import {
 } from '@material-ui/icons'
 import { ChromePicker } from 'react-color'
 
-import DraggableColorBox from './draggabale-color-box'
+import DraggableColorBox from './draggable-color-box'
 
 const drawerWidth = 240
 
@@ -82,7 +83,9 @@ export default function NewPalette () {
   const classes = useStyles()
   const [open, setOpen] = React.useState(true)
   const [currentColor, setCurrentColor] = React.useState('teal')
-  const [colors, setColors] = React.useState(['red', 'green', 'blue'])
+  const [colorName, setColorName] = React.useState('')
+  const [colors, setColors] = React.useState([{ color: 'blue', name: 'blue' }])
+  const [colorError, setColorError] = React.useState('')
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -92,8 +95,30 @@ export default function NewPalette () {
     setOpen(false)
   }
 
-  const addCurrentColor = () => {
-    setColors(colors => [...colors, currentColor])
+  const handleColorNameChange = e => {
+    const { value } = e.target
+    setColorName(value)
+  }
+
+  const addNewColor = () => {
+    if (!colorName) {
+      setColorError('This field is required')
+    } else if (
+      !colors.every(
+        ({ name }) => name.toLowerCase() !== colorName.toLowerCase()
+      )
+    ) {
+      setColorError('Color name must be unique')
+    } else if (
+      !colors.every(
+        ({ color }) => color.toLowerCase() !== currentColor.toLowerCase()
+      )
+    ) {
+      setColorError('Color already exist')
+    } else {
+      setColorError('')
+      setColors(colors => [...colors, { color: currentColor, name: colorName }])
+    }
   }
 
   return (
@@ -148,11 +173,18 @@ export default function NewPalette () {
           color={currentColor}
           onChangeComplete={newColor => setCurrentColor(newColor.hex)}
         />
+        <TextField
+          value={colorName}
+          onChange={handleColorNameChange}
+          error={colorError !== ''}
+          label='Color Name'
+          helperText={colorError}
+        />
         <Button
           variant='contained'
           color='primary'
           style={{ background: currentColor }}
-          onClick={addCurrentColor}
+          onClick={addNewColor}
         >
           Add Color
         </Button>
@@ -165,7 +197,11 @@ export default function NewPalette () {
       >
         <div className={classes.drawerHeader} />
         {colors.map(color => (
-          <DraggableColorBox key={color} color={color} />
+          <DraggableColorBox
+            key={color.name}
+            color={color.color}
+            name={color.name}
+          />
         ))}
       </main>
     </div>
