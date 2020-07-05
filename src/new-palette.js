@@ -100,6 +100,10 @@ export default function NewPalette () {
     setColorName(value)
   }
 
+  const handleRemoveColor = colorName => {
+    setColors(colors => colors.filter(color => color.name !== colorName))
+  }
+
   const addNewColor = () => {
     if (!colorName) {
       setColorError('This field is required')
@@ -201,6 +205,7 @@ export default function NewPalette () {
             key={color.name}
             color={color.color}
             name={color.name}
+            handleRemoveColor={handleRemoveColor}
           />
         ))}
       </main>
