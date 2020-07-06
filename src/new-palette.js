@@ -18,8 +18,9 @@ import {
   ChevronLeft as ChevronLeftIcon
 } from '@material-ui/icons'
 import { ChromePicker } from 'react-color'
+import { arrayMove } from 'react-sortable-hoc'
 
-import DraggableColorBox from './draggable-color-box'
+import DraggableColorList from './draggable-color-list'
 
 const drawerWidth = 240
 
@@ -155,6 +156,10 @@ export default function NewPalette ({ palettes, savePalette }) {
     }
   }
 
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setColors(colors => arrayMove(colors, oldIndex, newIndex))
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -245,14 +250,12 @@ export default function NewPalette ({ palettes, savePalette }) {
         })}
       >
         <div className={classes.drawerHeader} />
-        {colors.map(color => (
-          <DraggableColorBox
-            key={color.name}
-            color={color.color}
-            name={color.name}
-            handleRemoveColor={handleRemoveColor}
-          />
-        ))}
+        <DraggableColorList
+          colors={colors}
+          handleRemoveColor={handleRemoveColor}
+          axis='xy'
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   )
