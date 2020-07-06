@@ -7,7 +7,7 @@ import MiniPalette from './mini-palette'
 const useStyles = makeStyles({
   root: {
     backgroundColor: 'blue',
-    height: '100vh',
+    minHeight: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center'
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     width: '100%',
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 30%)',
-    gridGap: '5%'
+    gridGap: '2.5rem'
   }
 })
 

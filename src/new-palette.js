@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -79,13 +80,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function NewPalette () {
+export default function NewPalette ({ palettes, savePalette }) {
   const classes = useStyles()
+  const history = useHistory()
   const [open, setOpen] = React.useState(true)
   const [currentColor, setCurrentColor] = React.useState('teal')
   const [colorName, setColorName] = React.useState('')
   const [colors, setColors] = React.useState([{ color: 'blue', name: 'blue' }])
   const [colorError, setColorError] = React.useState('')
+  const [paletteName, setPaletteName] = React.useState('')
+  const [paletteNameError, setPaletteNameError] = React.useState('')
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -125,11 +129,38 @@ export default function NewPalette () {
     }
   }
 
+  const handlePaletteNameChange = e => {
+    const { value } = e.target
+    setPaletteName(value)
+  }
+
+  const handleSavePalette = () => {
+    if (!paletteName) {
+      setPaletteNameError('This field is required')
+    } else if (
+      !palettes.every(
+        palette =>
+          palette.paletteName.toLowerCase() !== paletteName.toLowerCase()
+      )
+    ) {
+      setPaletteNameError('Palette name must be unique')
+    } else {
+      const newPalette = {
+        id: paletteName.toLowerCase().replace(/ /g, '-'),
+        paletteName,
+        colors
+      }
+      savePalette(newPalette)
+      history.push('/')
+    }
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position='fixed'
+        color='default'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -147,6 +178,20 @@ export default function NewPalette () {
           <Typography variant='h6' noWrap>
             Persistent drawer
           </Typography>
+          <TextField
+            label='Palette Name'
+            value={paletteName}
+            onChange={handlePaletteNameChange}
+            error={paletteNameError !== ''}
+            helperText={paletteNameError}
+          />
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer

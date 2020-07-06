@@ -9,10 +9,16 @@ import palettesConfig from './palettes.config'
 import { generatePalette } from './palettes.helpers'
 
 export default function App () {
+  const [palettes, setPalettes] = React.useState(palettesConfig)
+
   const findPalette = id => {
-    return palettesConfig.find(palette => {
+    return palettes.find(palette => {
       return palette.id === id
     })
+  }
+
+  const savePalette = newPalette => {
+    setPalettes(palettes => [...palettes, newPalette])
   }
 
   return (
@@ -20,9 +26,9 @@ export default function App () {
       <Route
         exact
         path='/'
-        render={() => <PaletteList palettes={palettesConfig} />}
+        render={() => <PaletteList palettes={palettes} />}
       />
-      <Route exact path='/palette/new' render={() => <NewPalette />} />
+      <Route exact path='/palette/new' render={() => <NewPalette palettes={palettes} savePalette={savePalette} />} />
       <Route
         exact
         path='/palette/:id'
