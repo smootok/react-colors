@@ -28,7 +28,13 @@ export default function App () {
         path='/'
         render={() => <PaletteList palettes={palettes} />}
       />
-      <Route exact path='/palette/new' render={() => <NewPalette palettes={palettes} savePalette={savePalette} />} />
+      <Route
+        exact
+        path='/palette/new'
+        render={() => (
+          <NewPalette palettes={palettes} savePalette={savePalette} />
+        )}
+      />
       <Route
         exact
         path='/palette/:id'

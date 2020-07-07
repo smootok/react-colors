@@ -87,7 +87,7 @@ export default function NewPalette ({ palettes, savePalette }) {
   const [open, setOpen] = React.useState(true)
   const [currentColor, setCurrentColor] = React.useState('teal')
   const [colorName, setColorName] = React.useState('')
-  const [colors, setColors] = React.useState([{ color: 'blue', name: 'blue' }])
+  const [colors, setColors] = React.useState(palettes[0].colors)
   const [colorError, setColorError] = React.useState('')
   const [paletteName, setPaletteName] = React.useState('')
   const [paletteNameError, setPaletteNameError] = React.useState('')
@@ -156,6 +156,13 @@ export default function NewPalette ({ palettes, savePalette }) {
     }
   }
 
+  const addRandomColor = () => {
+    const allColors = palettes.map(p => p.colors).flat()
+    const randomColorIndex = Math.floor(Math.random() * allColors.length)
+    const randomColor = allColors[randomColorIndex]
+    setColors(colors => [...colors, randomColor])
+  }
+
   const onSortEnd = ({ oldIndex, newIndex }) => {
     setColors(colors => arrayMove(colors, oldIndex, newIndex))
   }
@@ -216,10 +223,14 @@ export default function NewPalette ({ palettes, savePalette }) {
         <Divider />
         <Typography variant='h4'>Design Your Palette</Typography>
         <div>
-          <Button variant='contained' color='secondary'>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={() => setColors([])}
+          >
             Clear Palette
           </Button>
-          <Button variant='contained' color='primary'>
+          <Button variant='contained' color='primary' onClick={addRandomColor}>
             Random Color
           </Button>
         </div>
